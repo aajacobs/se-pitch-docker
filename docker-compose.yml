@@ -1,0 +1,22 @@
+version: '3'
+services:
+  marklogic:
+    image: mlregistry.marklogic.com/ajacobs/sepitch-ml:cust-data-1.0
+    container_name: sepitch-ml
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+      - "8022:8022"
+  web:
+    image: mlregistry.marklogic.com/ajacobs/sepitch-webapp:1.0
+    container_name: sepitch-webapp
+    depends_on:
+      - marklogic
+    ports:
+      - "8077:8077"
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
